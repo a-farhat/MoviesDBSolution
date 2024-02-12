@@ -1,0 +1,24 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.title-badge {
+    padding: 0.2em 0.5em; /* Adjust padding as needed */
+    background-color: #f0f0f0; /* Light background color */
+    border-radius: 0.25rem; /* Rounded edges */
+}

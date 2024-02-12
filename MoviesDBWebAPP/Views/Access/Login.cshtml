@@ -1,0 +1,20 @@
+﻿@model MoviesDBWebAPP.Models.AccessViewModel
+
+<form asp-controller="Access" asp-action="Login" method="post">
+    <h1>Login</h1>
+    <input type="text" placeholder="Username" asp-for="Username" />
+    <input type="password" placeholder="Pasword" asp-for="Password" />
+    <button type="submit">Login</button>
+
+    @*<br />
+    <span>Or Login with google</span>*@
+    @*<a @Url.Action("Access", "Login") class="btn btn-primary">Login with Google</a>*@
+
+
+    @if(ViewData["ValidateMessage"] != null)
+    {
+        <br />
+        <br />
+        <label>@ViewData["ValidateMessage"]</label>
+    }
+</form>

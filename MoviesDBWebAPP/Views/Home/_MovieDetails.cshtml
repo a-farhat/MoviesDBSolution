@@ -1,0 +1,353 @@
+﻿@model MoviesDBWebAPP.Models.MovieDetailsViewModel
+
+<!-- Movie details modal -->
+<div class="modal fade" id="movieDetailsModal" tabindex="-1" role="dialog" aria-labelledby="movieDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="movieDetailsModalLabel">Movie Details</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Original_Title)</strong></div>
+                    <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Original_Title)</span></div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-3"><strong>Genres</strong></div>
+                    <div class="col-9">
+                    @for(int i=0; i<Model.MovieDetails.Genres.Count;i++)
+                    {
+                        <span class="title-badge">@Html.DisplayFor(m => m.MovieDetails.Genres[i].Name)</span>
+                    }
+                    </div>
+                </div>
+                <br/>
+                 <div class="row">
+                    <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Tagline)</strong></div>
+                    <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Tagline)</span></div>
+                </div>
+                <br/>
+                 <div class="row">
+                    <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Runtime)</strong></div>
+                    <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Runtime)</span></div>
+                </div>
+                <br/>
+                 <div class="row">
+                    <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Original_Language)</strong></div>
+                    <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Original_Language)</span></div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-3"><strong>Production Countries</strong></div>
+                    <div class="col-9">
+                    @for(int i=0; i<Model.MovieDetails.Production_Countries.Count;i++)
+                    {
+                        <span class="title-badge">@Html.DisplayFor(m => m.MovieDetails.Production_Countries[i].Name)</span>
+                    }
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-3"><strong>Production Companies</strong></div>
+                    <div class="col-9">
+                    @for(int i=0; i<Model.MovieDetails.Production_Companies.Count;i++)
+                    {
+                        <span class="title-badge">@Html.DisplayFor(m => m.MovieDetails.Production_Companies[i].Name):@Html.DisplayFor(m => m.MovieDetails.Production_Companies[i].Origin_country)</span>
+                    }
+                    </div>
+                </div>
+                <br/>
+                 <div class="row">
+                    <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Tagline)</strong></div>
+                    <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Tagline)</span></div>
+                </div>
+                <br/>
+                 <div class="row">
+                    <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Vote_Average)</strong></div>
+                    <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Vote_Average) </span></div>
+                </div>
+                <br/>
+                 <div class="row">
+                    <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Budget)</strong></div>
+                    <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Budget) </span></div>
+                </div>
+                <br/>
+                 <div class="row">
+                    <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Revenue)</strong></div>
+                    <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Revenue) </span></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@model Commissioning.Models.PriorApproval.EditAnswerViewModel
+@using Commissioning.Helpers;
+@using Commissioning.Models.PriorApproval
+
+<div id="edit-answer-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="edit-answer-div" class="modal-body">
+                <form id="edit-answer-form" action="/PriorApproval/SaveAnswer" method="post" class="justify-content-center">
+                    @if (!Html.ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger" style="margin-top: 10px;">@Html.ValidationSummary()</div>
+                    }
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-outline card-success">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h3 class="card-title">@Model.Action Answer</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                @Html.HiddenFor(m => m.Answer.AnswerId)
+                                @Html.HiddenFor(m => m.Answer.UserCreate)
+                                @Html.HiddenFor(m => m.Answer.CreateDate)
+                                @Html.HiddenFor(m => m.Answer.UserUpdate)
+                                @Html.HiddenFor(m => m.Answer.UpdateDate)
+                                @Html.HiddenFor(m => m.Answer.Deleted)
+                                @Html.HiddenFor(m => m.Answer.QuestionCode)
+                                @Html.HiddenFor(m => m.Answer.QuestionId)
+
+                                <div class="row">
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.AnswerCode)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.AnswerCode, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.AnswerField)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.AnswerField, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.AnswerOrder)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.AnswerOrder, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.AnswerTextBetween)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.AnswerTextBetween, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.AnswerShort)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.AnswerShort, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.AnswerValue)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.AnswerValue, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.CascadeValues)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.CascadeValues, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.AnswerScore)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.AnswerScore, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.MinReqAns)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.MinReqAns, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.MaxReqAns)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.MaxReqAns, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.AnsMinVal)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.AnsMinVal, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                    <div class="col-2 col-form-label">
+                                        @Html.LabelFor(m => m.Answer.AnsMaxVal)
+                                    </div>
+                                    <div class="col-4">
+                                        @Html.EditorFor(m => m.Answer.AnsMaxVal, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card-outline card-blue">
+                                <div class="card-header" data-card-widget="collapse">
+                                    <div class="row">
+                                        <div class="col-11">
+                                            <h3 class="card-title">Cascade</h3>
+                                        </div>
+                                        <div class="col-1 card-tools">
+                                            <div style="margin-top: auto; float: right;">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit" onclick="SaveAnswer();"><span class="fas fa-save"></span>Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+*@
+
+@*
+
+model IEnumerable<MoviesDBWebAPP.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Overview)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Original_Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Release_Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.adult)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Backdrop_Path)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Original_Language)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Popularity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Poster_Path)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vote_Average)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Video)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vote_Count)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Overview)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Original_Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Release_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.adult)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Backdrop_Path)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Original_Language)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Popularity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Poster_Path)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vote_Average)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Video)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vote_Count)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@

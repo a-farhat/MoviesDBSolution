@@ -1,0 +1,59 @@
+﻿@model MoviesDBWebAPP.Models.MovieListViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (!Html.ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" style="margin-top: 10px;">@Html.ValidationSummary()</div>
+}
+<h1>Popular Movies</h1>
+
+@for(int i=0; i<Model.Movies.Count; i++) 
+{
+    <div class="card mb-3">
+        <div class="card-header" id="heading@movie.Id">
+            <h2>@Html.DisplayFor(m => m.Movies[i].Title)</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3">
+                     <button class="btn btn-link"  type="button" aria-expanded="false"  onclick="location.href='@Url.Action("ShowMovieDetails", "Home", new { id = Model.Movies[i].Id })'"  >
+                    <img src="https://image.tmdb.org/t/p/w500/@Model.Movies[i].Poster_Path" title="click for details"  alt="Movie Poster" style="length:100px; width:150px" class="img-fluid" />
+                </button>
+                </div>
+                <div class="col-9">
+                     <div class="row">
+                        <div class="col-2"><strong>@Html.LabelFor(m => m.Movies[i].Overview)</strong></div>
+                        <div class="col-10"><span class="title-badge">@Html.DisplayFor(m => m.Movies[i].Overview)</span></div>
+                    </div>
+                    <br/>
+                     <div class="row">
+                        <div class="col-2"><strong>@Html.LabelFor(m => m.Movies[i].Release_Date)</strong></div>
+                        <div class="col-10"><span class="title-badge">@Html.DisplayFor(m => m.Movies[i].Release_Date) </span></div>
+                    </div>
+                    <br/>
+                     <div class="row">
+                        <div class="col-2"><strong>@Html.LabelFor(m => m.Movies[i].Video)</strong></div>
+                        @if(Model.Movies[i].Video == true)
+                        {
+                            <div class="col-10"><span class="title-badge">Available on Video</span></div>
+                        }
+                        else
+                        {
+                         <div class="col-10"><span class="title-badge">Not Available on Video</span></div>
+                        }
+                    </div>
+                    <br/>
+                    <div>
+                    <button class="btn btn-dark" onclick="ShowQuickDetails('@Model.Movies[i].Id');">Quick Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+}
+<script src="~/js/PopularMovies.js"></script>
+
+
