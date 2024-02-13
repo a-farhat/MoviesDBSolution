@@ -23,20 +23,45 @@
 @Html.HiddenFor(m=>m.MovieDetails.Vote_Average)
 @Html.HiddenFor(m=>m.MovieDetails.Budget)
 @Html.HiddenFor(m=>m.MovieDetails.Revenue)
-<div class="container">
-    <div class="row">
-        <div class="col-6">
-            <img src="https://image.tmdb.org/t/p/w500/@Model.MovieDetails.Poster_Path" alt="Movie Poster" class="img-fluid" />
-        </div>
-        <div class="col-6">
-            <div class="row">
-            <div class="col-3"><strong>@Html.LabelFor(m => m.MovieDetails.Original_Title)</strong></div>
-            <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Tagline)</span></div>
-        </div>
-        <br />
+ @{
+        var director = Model.MovieCredits.Crew.Where(m => m.Job == "Director").FirstOrDefault();
+        var producer = Model.MovieCredits.Crew.Where(m => m.Job == "Producer").FirstOrDefault();
+        if(director != null)
+        {
+            var directorName = director.Name;
+        }
+        if(producer != null)
+        {
+            var producerName = producer.Name;
+        }
+
+  }
+    
         <div class="row">
-            <div class="col-3"><strong>Genres</strong></div>
-            <div class="col-9">
+        <p class="fw-bold">Cast</p>
+            @if (Model.MovieCredits != null)
+            {
+                       
+                @foreach (var castMember in Model.MovieCredits.Cast)
+                {
+                    <div class="col"><img src="https://image.tmdb.org/t/p/w500/@castMember.Profile_Path" style="Width:450px" alt="Movie Poster" class="img-fluid" />
+                            <br/>
+                            @castMember.Name
+                    </div>
+                }   
+            }
+            </div>
+                <br /><br /><br />
+<div class="row">
+    <div class="col-6">
+        <img src="https://image.tmdb.org/t/p/w500/@Model.MovieDetails.Poster_Path" style="width:400px" alt="Movie Poster" class="img-fluid" />
+    </div>
+    <div class="col-6">
+        <div class="row">
+            <div class="col-2"><strong>@Html.LabelFor(m => m.MovieDetails.Original_Title)</strong></div>
+            <div class="col-4"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Tagline)</span></div>
+                <div class="col-2"><strong>Genres</strong></div>
+            <div class="col-4">
                 @for (int i = 0; i < Model.MovieDetails.Genres.Count; i++)
                 {
                     <span class="title-badge">@Html.DisplayFor(m => m.MovieDetails.Genres[i].Name)</span>
@@ -46,76 +71,79 @@
             </div>
         </div>
         <br />
-            <div class="row">
-                <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Tagline)</strong></div>
-                <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Tagline)</span></div>
-            </div>
-            <br/>
-                <div class="row">
-                <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Runtime)</strong></div>
-                <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Runtime)</span></div>
-            </div>
-            <br/>
-                <div class="row">
-                <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Original_Language)</strong></div>
-                <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Original_Language)</span></div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-3"><strong>Production Countries</strong></div>
-                <div class="col-9">
-                @for(int i=0; i<Model.MovieDetails.Production_Countries.Count;i++)
+        <div class="row">
+            <div class="col-2"><strong>Director</strong></div>
+                @if(director != null)
                 {
-                    <span class="title-badge">@Html.DisplayFor(m => m.MovieDetails.Production_Countries[i].Name)</span>
-                    @Html.HiddenFor(m => m.MovieDetails.Production_Countries[i].Name)
-                    @Html.HiddenFor(m => m.MovieDetails.Production_Countries[i].Id)
-                    @Html.HiddenFor(m => m.MovieDetails.Production_Countries[i].Iso_3166_1)
+                    <div class="col-4"><span class="title-badge">@director.Name</span></div>
                 }
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-3"><strong>Production Companies</strong></div>
-                <div class="col-9">
-                @for(int i=0; i<Model.MovieDetails.Production_Companies.Count;i++)
+                 <div class="col-2"><strong>Producer</strong></div>
+                @if (producer != null)
                 {
-                    <span class="title-badge">@Html.DisplayFor(m => m.MovieDetails.Production_Companies[i].Name):@Html.DisplayFor(m => m.MovieDetails.Production_Companies[i].Origin_country)</span>
-                    @Html.HiddenFor(m =>  m.MovieDetails.Production_Companies[i].Name)
-                    @Html.HiddenFor(m =>  m.MovieDetails.Production_Companies[i].Id)
-                    @Html.HiddenFor(m =>  m.MovieDetails.Production_Companies[i].Origin_country)
+                    <div class="col-4"><span class="title-badge">@producer.Name</span></div>
                 }
-                </div>
-            </div>
-            <br/>
-                <div class="row">
-                <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Tagline)</strong></div>
-                <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Tagline)</span></div>
-            </div>
-            <br/>
-                <div class="row">
-                <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Vote_Average)</strong></div>
-                <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Vote_Average) </span></div>
-            </div>
-            <br/>
-                <div class="row">
-                <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Budget)</strong></div>
-                <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Budget) </span></div>
-            </div>
-            <br/>
+         </div>
+            
+        <br />
+                 
+        <br />
+        <div class="row">
+            <div class="col-2"><strong>@Html.LabelFor(m=>m.MovieDetails.Tagline)</strong></div>
+            <div class="col-4"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Tagline)</span></div>
+             <div class="col-2"><strong>@Html.LabelFor(m=>m.MovieDetails.Runtime)</strong></div>
+            <div class="col-4"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Runtime)</span></div>
+        </div>
+        <br />
+        
             <div class="row">
-                <div class="col-3"><strong>@Html.LabelFor(m=>m.MovieDetails.Revenue)</strong></div>
-                <div class="col-9"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Revenue) </span></div>
-            </div>
-            <br/>
-            <div class = "row">
-                <div class="col-md"><button  class="btn btn-primary">Add Movie to My WishList</button></div>
-
-                <div class="col-md"><button type="button" onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn-secondary">Back to List</button></div>
-
+            <div class="col-2"><strong>@Html.LabelFor(m=>m.MovieDetails.Original_Language)</strong></div>
+            <div class="col-4"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Original_Language)</span></div>
+            <div class="col-2"><strong>Production Countries</strong></div>
+            <div class="col-4">
+            @for(int i=0; i<Model.MovieDetails.Production_Countries.Count;i++)
+            {
+                <span class="title-badge">@Html.DisplayFor(m => m.MovieDetails.Production_Countries[i].Name)</span>
+                @Html.HiddenFor(m => m.MovieDetails.Production_Countries[i].Name)
+                @Html.HiddenFor(m => m.MovieDetails.Production_Countries[i].Id)
+                @Html.HiddenFor(m => m.MovieDetails.Production_Countries[i].Iso_3166_1)
+            }
             </div>
         </div>
+        <br />
+        <div class="row">
+            <div class="col-2"><strong>Production Companies</strong></div>
+            <div class="col-10">
+            @for(int i=0; i<Model.MovieDetails.Production_Companies.Count;i++)
+            {
+                <span class="title-badge">@Html.DisplayFor(m => m.MovieDetails.Production_Companies[i].Name):@Html.DisplayFor(m => m.MovieDetails.Production_Companies[i].Origin_country)</span>
+                @Html.HiddenFor(m =>  m.MovieDetails.Production_Companies[i].Name)
+                @Html.HiddenFor(m =>  m.MovieDetails.Production_Companies[i].Id)
+                @Html.HiddenFor(m =>  m.MovieDetails.Production_Companies[i].Origin_country)
+            }
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-2"><strong>@Html.LabelFor(m=>m.MovieDetails.Tagline)</strong></div>
+            <div class="col-4"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Tagline)</span></div>
+            <div class="col-2"><strong>@Html.LabelFor(m=>m.MovieDetails.Vote_Average)</strong></div>
+            <div class="col-4"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Vote_Average) </span></div>
+        </div>
+        <br />
+            <div class="row">
+            <div class="col-2"><strong>@Html.LabelFor(m=>m.MovieDetails.Budget)</strong></div>
+            <div class="col-4"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Budget) </span></div>
+             <div class="col-2"><strong>@Html.LabelFor(m=>m.MovieDetails.Revenue)</strong></div>
+            <div class="col-4"><span class="title-badge">@Html.DisplayFor(m=>m.MovieDetails.Revenue) </span></div>
+        </div>
+        <br /><br /><br />
+        <div class = "row">
+            <div class="col-md"><button  class="btn btn-primary">Add Movie to My WishList</button></div>
+            <div class="col-md"><button type="button" onclick="location.href='@Url.Action("Index", "Home")'" class="btn btn-secondary">Back to List</button></div>
+
+        </div>
+        <br/>
     </div>
- </div>
  </form>
 
 <script src="~/js/PopularMovies.js"></script>

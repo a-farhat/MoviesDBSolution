@@ -8,9 +8,7 @@ namespace MoviesDBWebAPP.Services
 
         public void AddMovie(Movie movie)
         {
-            // Mimic database operation to add movie
             _movies.Add(movie);
         }
-        // Implement other methods as needed
     }
 }
