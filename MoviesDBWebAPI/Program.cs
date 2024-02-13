@@ -14,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddMemoryCache();
+
 var tkconf = builder.Configuration.GetSection("Jwt");
 
 var tokenValidationParameters = new TokenValidationParameters
