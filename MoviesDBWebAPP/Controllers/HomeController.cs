@@ -46,10 +46,7 @@ namespace MoviesDBWebAPP.Controllers
             {               
                 var movieDetails = _moviesDBAPIClient.GetMovieDetails(id).Result;
                 MovieDetailsViewModel model = new MovieDetailsViewModel();
-
                 model.MovieDetails = movieDetails;
-                
-
                 ModelState.Clear();
                 return View("_MovieDetails", model); 
             }
@@ -65,9 +62,11 @@ namespace MoviesDBWebAPP.Controllers
             try
             {
                 var movieDetails = _moviesDBAPIClient.GetMovieDetails(id).Result;
+                var movieCredits = _moviesDBAPIClient.GetMovieCredits(id).Result;
                 MovieDetailsViewModel model = new MovieDetailsViewModel();
 
                 model.MovieDetails = movieDetails;
+                model.MovieCredits = movieCredits;
 
 
                 ModelState.Clear();

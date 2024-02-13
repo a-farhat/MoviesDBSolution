@@ -56,6 +56,20 @@ namespace MoviesDBWebAPI.Controllers
             return Ok(movieDetails);
         }
 
+        [HttpGet("GetMovieCredits")]
+        public async Task<IActionResult> GetMovieCredits(int id)
+        {
+            Credits movieCredits = new Credits();
+            var response = await _httpClient.GetAsync(id.ToString()+"/credits");
+            if (response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                dynamic responseData = JsonConvert.DeserializeObject<dynamic>(data);
+                movieCredits = JsonConvert.DeserializeObject<Credits>(responseData.ToString());
+            }
+            return Ok(movieCredits);
+        }
+
         [HttpPost("/SaveMovieDetails")]
         public async Task<IActionResult> SaveMovieDetails(MovieDetails movieDetails)
         {

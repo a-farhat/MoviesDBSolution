@@ -12,6 +12,7 @@ namespace MoviesDBWebAPP.Helpers
     {
         Task<List<Movie>> GetPopularMovies();
         Task<MovieDetails> GetMovieDetails(int id);
+        Task<Credits> GetMovieCredits(int id);
         Task SaveMovieDetails(MovieDetails movieDetails);
     }
 
@@ -53,6 +54,20 @@ namespace MoviesDBWebAPP.Helpers
             }
 
             return movieDetails;
+        }
+
+        public async Task<Credits> GetMovieCredits(int id)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"/api/MovieDB/GetMovieCredits?id={id}");
+            response.EnsureSuccessStatusCode();
+            var responseBody = await response.Content.ReadAsStringAsync();
+            var movieCredits = JsonConvert.DeserializeObject<Credits>(responseBody);
+            if (movieCredits == null)
+            {
+                return new Credits();
+            }
+
+            return movieCredits;
         }
 
         public async Task SaveMovieDetails(MovieDetails movieDetails)
